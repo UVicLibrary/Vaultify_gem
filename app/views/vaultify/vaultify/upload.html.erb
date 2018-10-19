@@ -1,0 +1,6 @@
+<%= form_tag vaultify_translate_path, method: 'post', multipart: true do %>
+
+  <%= file_field_tag 'csv' %>
+  <%= submit_tag 'upload file' %>
+
+<% end %>

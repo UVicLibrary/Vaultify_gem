@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
 require "vaultify/version"
@@ -7,16 +7,17 @@ require "vaultify/version"
 Gem::Specification.new do |s|
   s.name        = "vaultify"
   s.version     = Vaultify::VERSION
-  s.authors     = ["llvallejo93"]
-  s.email       = ["llvallejo93@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Vaultify."
-  s.description = "TODO: Description of Vaultify."
+  s.authors     = "Braydon Justice"
+  s.email       = "bjustice@uvic.ca"
+  s.homepage    = "https://github.com/UVicLibrary/vaultify"
+  s.summary     = "Standardizes metadata"
+  s.description = "Data standardization application"
   s.license     = "Apache 2.0"
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", "~> 5.1.6"
+  s.add_dependency "rails", "~> 5.0"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "engine_cart"
 end
