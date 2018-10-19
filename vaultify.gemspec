@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of Vaultify."
   s.description = "TODO: Description of Vaultify."
-  s.license     = "MIT"
+  s.license     = "Apache 2.0"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.1.6"
 
