@@ -1,6 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Welcome to the Vaultify Application </title>
+<link rel="stylesheet" href="application.css"
+</head>
+<body>
+<div id="wrapper">
+  <header>
+    <h1>Welcome to the Vaultify Application</h1>
+    <style>
+    Body {text-align:center}
+    </style>
+  </div>
+</head>
+<br>
+<br>
+<br>
 <%= form_tag vaultify_translate_path, method: 'post', multipart: true do %>
 
   <%= file_field_tag 'csv' %>
   <%= submit_tag 'upload file' %>
 
 <% end %>
+</html>

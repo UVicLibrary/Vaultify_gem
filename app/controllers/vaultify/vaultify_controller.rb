@@ -1,6 +1,9 @@
 module Vaultify
   class VaultifyController < ApplicationController
 
+
+
+
     def upload
 
     end
@@ -12,6 +15,8 @@ module Vaultify
     def export
 
     end
+
+
 
   end
 end
