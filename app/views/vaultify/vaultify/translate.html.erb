@@ -6,7 +6,7 @@
 <body>
 <div id="wrapper">
   <header>
-    <h1>Translating...</h1>
+    <h1>Translate your CSV File Here </h1>
     <style>
     Body {text-align:center}
     </style>
@@ -16,4 +16,9 @@
 </br>
 </br>
 </br>
-<%= submit_tag 'Translate' %>
+<%= form_tag vaultify_export_path, method: 'post', multipart: true do %> 
+<%= submit_tag 'To Exports' %>
+<% end %>
+</html>
+
+
