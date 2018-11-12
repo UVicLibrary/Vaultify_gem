@@ -38,3 +38,13 @@ header h1 {
     color: #fff;
     line-height: 50px;
 }
+
+ #next_button
+ {
+     text-align: right;
+     position: relative;
+     top: -100px;
+     left: -50px; 
+
+ }
+
