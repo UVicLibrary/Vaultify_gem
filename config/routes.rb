@@ -4,4 +4,5 @@ Vaultify::Engine.routes.draw do
   post '/export', to: 'vaultify#export', as: 'vaultify_export'
   get '/fast', to: 'vaultify#fast', as: 'vaultify_fast'
   get '/aat', to: 'vaultify#aat', as: 'vaultify_aat'
+
 end
