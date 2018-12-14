@@ -1,19 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="application.css">
-</head>
-<body>
 <div id="wrapper">
   <header>
-    <h1>Translating...</h1>
+    <h1>Translate</h1>
     <style>
-    Body {text-align:center}
+      Body {
+        text-align: center
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: white;
+      }
+
+      td {
+        width: 33%
+      }
+
+      table, th, td {
+        border: 1px solid lightgray;
+      }
     </style>
-    </header>
-  </div>
-</body>
+    <%= submit_tag 'Export', form: "translate", onclick: "document.getElementById('translate').submit()" %>
+  </header>
+</div>
+
+<%= form_tag vaultify_export_path + '.csv', id: 'translate', method: 'post', multipart: true do %>
+
+  <%= select_tag 'field', options_for_select(@fields.map {|f, v| [f, f]}), onchange: 'loadTable(this);' %>
+
+  <% @fields.each do |field, api| %>
+    <table id="<%= field %>" class="" style="display: <%= 'none' unless @fields.keys.first==field %>;">
+      <span id="<%= field %>_api" class="no-dis"><%= api %></span>
+      <tr>
+        <th>Title</th>
+        <th>Original</th>
+        <th>Adjusted</th>
+      </tr>
+      <% @csv.each_with_index do |row, row_index| %>
+        <tr id="<%= field + "-" + row_index.to_s %>" onclick="openModal(this)">
+          <td class="title"><%= row['title'] %></td>
+          <td class="original">
+            <ul class="original-list">
+              <% unless row[field].nil? %>
+                <% row[field].split(@mvs).each do |li| %>
+                  <li><%= li %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </td>
+          <td class="adjusted">
+            <ul class="adjusted-list">
+              <% unless row["#{field}-adjusted"].nil? %>
+                <% row["#{field}-adjusted"].split(@mvs).each_with_index do |li, li_index| %>
+                  <li>
+                    <%= li.split('url:').first %>
+                    <%= hidden_field_tag field + "[" + row_index.to_s + '][' + li_index.to_s + ']', li.split('url:').last, class: "url no-dis" %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>
 </br>
 </br>
 </br>
-<%= submit_tag 'Translate' %>
+<%= render 'modal' %>

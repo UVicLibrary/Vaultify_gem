@@ -1,0 +1,37 @@
+<div id="editModal" class="modal">
+
+  <div class="modal-content">
+    <span id="current_row" class="no-dis"></span>
+    <table id="modal_table">
+      <tr>
+        <td>Title</td>
+        <td id="modal_title"></td>
+      </tr>
+      <tr>
+        <td>Original</td>
+        <td id="modal_orig"></td>
+      </tr>
+      <tr>
+        <td>Adjusted</td>
+        <td>
+          <ul id="modal_adjust"></ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" id="modal_autoc">
+          <%= text_field_tag '', nil, placeholder: 'enter search here', id: 'autoc_field' %><%= button_tag 'add', onclick: "add_field()" %>
+        </td>
+      </tr>
+    </table>
+    <div class="modal_buttons">
+      <div class="modal_cancel_button">
+        <%= button_tag 'Cancel', id: 'modal_cancel', onclick: "closeModal()" %>
+      </div>
+      <div class="modal_apply_buttons">
+        <%= button_tag 'Apply All', id: 'modal_apply_all', onclick: "modal_apply_all()" %>
+        <%= button_tag 'Apply', id: 'modal_apply', onclick: "modal_apply(document.getElementById('current_row').innerText)" %>
+      </div>
+    </div>
+  </div>
+
+</div>

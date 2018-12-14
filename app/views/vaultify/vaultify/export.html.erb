@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title> Exported Items </title>
-<link rel="stylesheet" href="application.css">
-</head>
-<body>
 <div id="wrapper">
   <header>
     <h1>Exported Items</h1>
@@ -13,8 +6,15 @@
     </style>
     </header>
   </div>
-</body>
+
+
+<%= @puramses.inspect %>
+
 </br>
 </br>
+
+<%= @csv.inspect %>
+
+
 </br>
 <%= submit_tag 'Export File' %>

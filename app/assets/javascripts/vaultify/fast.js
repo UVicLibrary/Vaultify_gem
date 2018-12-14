@@ -52,7 +52,7 @@ function testAjax(query, queryIndex, format) {
     let qres = "&query=" + query + "&queryIndex=" + queryIndex + "&queryReturn=" + suggestReturn;
     qres += "&suggest=autoSubject&rows=20";
     Rails.ajax({
-        url: "/vaultify/fast." + format,
+        url: "/vaultify/fast.json",
         async: false,
         type: "GET",
         data: qres,

@@ -7,21 +7,21 @@ const xmlParseString = require('xml2js').parseString;
 
 
 function makeAatQuery(req, res, next) {
-  result = aatAPIQuery(req.params.query, (err, data) => {
-    if (err || !data) {
-      console.log(err)
-      return next(err)
-    }
-    let subjects;
-    try {
-      subjects = data.Vocabulary.Subject.map(subject => {
-        return subject.Preferred_Term[0]._
-      })
-    } catch (e) {
-      subjects = []
-    }
-    res.json({'names': subjects})
-  })
+    result = aatAPIQuery(req.params.query, (err, data) => {
+        if (err || !data) {
+            console.log(err)
+            return next(err)
+        }
+        let subjects;
+        try {
+            subjects = data.Vocabulary.Subject.map(subject => {
+                return subject.Preferred_Term[0]._
+            })
+        } catch (e) {
+            subjects = []
+        }
+        res.json({'names': subjects})
+    })
 }
 
 var aatVar;
@@ -32,9 +32,9 @@ function aatAPIQuery (query, format) {
     cleanQuery = cleanQuery.replace("AAT", "");
     cleanQuery = cleanQuery.replace("aat", "");
     console.log(cleanQuery);
-
+    aatVar = [];
     Rails.ajax({
-        url: "/vaultify/aat." + format,
+        url: "/vaultify/aat.json",
         async: false,
         type: "GET",
         data: "cleanQuery=" + cleanQuery,
@@ -54,32 +54,33 @@ function aatAPIQuery (query, format) {
     };
     console.log(options);
 }
-  /*
-  const req = http.request(options, (res) => {
-    let buffer = "";
-    res.setEncoding('utf8');
 
-    res.on('data', (chunk) => {
-      buffer += chunk
+/*
+const req = http.request(options, (res) => {
+  let buffer = "";
+  res.setEncoding('utf8');
+
+  res.on('data', (chunk) => {
+    buffer += chunk
+  });
+
+  res.on('end', () => {
+    xmlParseString(buffer, (err, res) => {
+      if (err) {
+        console.log(err)
+        callback(err)
+      }
+      callback(null, res)
     });
-
-    res.on('end', () => {
-      xmlParseString(buffer, (err, res) => {
-        if (err) {
-          console.log(err)
-          callback(err)
-        }
-        callback(null, res)
-      });
-    })
   })
-  req.on('error', (err) => {
-    console.log(err)
-  })
-  req.end()
+})
+req.on('error', (err) => {
+  console.log(err)
+})
+req.end()
 }
 
 
 module.exports = router;
 
-  */
+*/
