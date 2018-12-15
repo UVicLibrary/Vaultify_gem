@@ -20,4 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "engine_cart"
+  s.add_develpoment_dependency "activerecord-session_store"
+  s.add_development_dependency "edtf"
 end
