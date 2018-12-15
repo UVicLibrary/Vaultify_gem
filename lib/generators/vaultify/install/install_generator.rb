@@ -6,4 +6,8 @@ class Vaultify::InstallGenerator < Rails::Generators::Base
       %(\n mount Vaultify::Engine => '/vaultify'\n)
     end
   end
+
+  def inject_vaultify_yml
+    copy_file "config/vaultify.yml", "config/vaultify.yml"
+  end
 end

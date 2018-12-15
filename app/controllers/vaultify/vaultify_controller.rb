@@ -2,8 +2,7 @@ module Vaultify
   class VaultifyController < ApplicationController
 
 
-
-
+    require 'csv'
     require 'net/http'
     require 'base64'
 
@@ -19,7 +18,24 @@ module Vaultify
     end
 
     def translate
-
+      @mvs = Vaultify::Engine.config['mvs']
+      csv = params['csv'].path
+      @csv = ::CSV.parse(File.read(csv), headers: true, encoding: 'utf-8').map(&:to_hash)
+      session[:csv] = ::CSV.parse(File.read(csv), headers: true, encoding: 'utf-8').map(&:to_hash)
+      @total = @csv.length
+      @csv.each_with_index do |row, index|
+        next if row == nil
+        @fields.each do |field_row|
+          field = field_row.first
+          api = field_row.last
+          next if (row[field].to_s.empty? || api.to_s.empty?)
+          adjusted_array = []
+          row[field].split(@mvs).each do |line|
+            adjusted_array << send("#{api}First", line) rescue nil
+          end
+          @csv[index]["#{field}-adjusted"] = adjusted_array.join(@mvs)
+        end
+      end
     end
 
     def export
@@ -65,17 +81,11 @@ module Vaultify
     end
 
     def aat
-      url = URI('http://vocabsservices.getty.edu/AATService.asmx/AATGetTermMatch?term=' + params[:cleanQuery] + '&logop=&notes=')
-      req = Net::HTTP::Get.new(url)
-      req['Authorization'] = "Basic " + "univic" + ":" + "1V23g~dn~\8/"#Base64.urlsafe_encode64("1V23g~dn~\8/")
-
-      res = Net::HTTP.start(url.hostname, url.port) do |http|
-        http.request(req)
-      end
-
+      res = aatApi params['cleanQuery']
       respond_to do |format|
-        format.json { render plain: res.body }
-        format.text { render plain: res.body }
+        format.xml {render plain: res}
+        format.text {render plain: res}
+        format.json {render plain: res.to_json}
       end
     end
 

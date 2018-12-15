@@ -24,29 +24,11 @@ function makeFastQuery (req, res, next) {
   })
 }
 
-function fastAPIQuery (query, queryIndex, callback) {
-    query = query.replace(/[^a-zA-Z\d\s]/g, '')
-    const suggestReturn = queryIndex + "%2Cidroot%2Cauth";
-    let qres = "&query=" + query + "&queryIndex=" + queryIndex + "&queryReturn=" + suggestReturn;
-    qres += "&suggest=autoSubject&rows=20";
-    const url = 'http://fast.oclc.org/searchfast/fastsuggest?' + qres;
-
-    let buffer = "";
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            buffer = this.responseText;
-        }
-    };
-    console.log("opening");
-    xhr.open("GET", url, true);
-    xhr.send();
-
-}
-
-var testVar;
+var fastVar;
 
 
-function testAjax(query, queryIndex, format) {
+function fastAPIQuery(query, queryIndex) {
+    fastVar = [];
     query = query.replace(/[^a-zA-Z\d\s]/g, '');
     const suggestReturn = queryIndex + "%2Cidroot%2Cauth";
     let qres = "&query=" + query + "&queryIndex=" + queryIndex + "&queryReturn=" + suggestReturn;
@@ -57,7 +39,14 @@ function testAjax(query, queryIndex, format) {
         type: "GET",
         data: qres,
         success: function (result) {
-            testVar = result;
+            dup = [];
+            result.response.docs.forEach(function (element) {
+                console.log(element);
+                if (!dup.includes(element.auth)) {
+                    dup.push(element.auth);
+                    fastVar.push(JSON.parse('{"text":"' + element.auth + '", "url":"' + element.idroot + '"}'));
+                }
+            });
         }
     });
 }
