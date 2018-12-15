@@ -1,0 +1,12 @@
+fields:
+  creator: 'fast'
+  contributor: 'fast'
+  subject: 'fast'
+  geographic: 'fast'
+  date_created: 'edtf'
+  chronological: 'fast'
+  date_digitized: 'edtf'
+  language: 'iso'
+  type: 'dcmi'
+  genre: 'aat'
+mvs: ";"
