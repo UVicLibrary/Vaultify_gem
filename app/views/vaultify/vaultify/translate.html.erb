@@ -25,7 +25,7 @@
 </div>
 
 <%= form_tag vaultify_export_path + '.csv', id: 'translate', method: 'post', multipart: true do %>
-
+  <%= hidden_field_tag 'csv_name', @csv_name %>
   <%= select_tag 'field', options_for_select(@fields.map {|f, v| [f, f]}), onchange: 'loadTable(this);' %>
 
   <% @fields.each do |field, api| %>

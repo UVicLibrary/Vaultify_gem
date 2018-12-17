@@ -14,12 +14,11 @@ Gem::Specification.new do |s|
   s.description = "Data standardization application"
   s.license     = "Apache 2.0"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*", "Gemfile", "LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.0"
+  s.add_dependency "edtf"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "engine_cart"
-  s.add_develpoment_dependency "activerecord-session_store"
-  s.add_development_dependency "edtf"
 end

@@ -4,8 +4,7 @@ module Vaultify
 
     require 'csv'
     require 'net/http'
-    require 'base64'
-
+    require 'fileutils'
     include EdtfHelper
 
     def initialize
@@ -21,14 +20,20 @@ module Vaultify
       @mvs = Vaultify::Engine.config['mvs']
       csv = params['csv'].path
       @csv = ::CSV.parse(File.read(csv), headers: true, encoding: 'utf-8').map(&:to_hash)
-      session[:csv] = ::CSV.parse(File.read(csv), headers: true, encoding: 'utf-8').map(&:to_hash)
+      @csv_name = params[:csv].original_filename.gsub '.csv', ''
+      @csv_name += Time.now.strftime('%Y%m%d%H%M%S%L') + '.csv'
+      csv_path = Rails.root.join('public', 'csvs', 'upload')
+      FileUtils.mkdir_p(csv_path) unless File.directory? csv_path
+      File.open(File.join(csv_path, @csv_name), 'wb') {|f| f.write(File.read(csv))}
       @total = @csv.length
       @csv.each_with_index do |row, index|
-        next if row == nil
+        next if row.nil?
+
         @fields.each do |field_row|
           field = field_row.first
           api = field_row.last
-          next if (row[field].to_s.empty? || api.to_s.empty?)
+          next if row[field].to_s.empty? || api.to_s.empty?
+
           adjusted_array = []
           row[field].split(@mvs).each do |line|
             adjusted_array << send("#{api}First", line) rescue nil
@@ -39,7 +44,8 @@ module Vaultify
     end
 
     def export
-      @csv = session[:csv].deep_dup
+      path = Rails.root.join('public', 'csvs', 'upload', params[:csv_name])
+      @csv = ::CSV.parse(File.read(path), headers: true, encoding: 'utf-8').map(&:to_hash)
       @puramses = params
       @fields.each do |field_row|
         next unless params.key? field_row.first.to_sym
