@@ -1,4 +1,4 @@
-const dcmiVar = [
+var dcmiVar = [
     {"text": 'Collection', "url": 'Collection'},
     {"text": 'Dataset', "url": 'Dataset'},
     {"text": 'Event', "url": 'Event'},

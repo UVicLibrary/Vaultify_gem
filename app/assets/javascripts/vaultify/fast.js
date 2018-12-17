@@ -4,8 +4,8 @@ var fastVar;
 function fastAPIQuery(query, queryIndex) {
     fastVar = [];
     query = query.replace(/[^a-zA-Z\d\s]/g, '');
-    const suggestReturn = queryIndex + "%2Cidroot%2Cauth";
-    let qres = "&query=" + query + "&queryIndex=" + queryIndex + "&queryReturn=" + suggestReturn;
+    var suggestReturn = queryIndex + "%2Cidroot%2Cauth";
+    var qres = "&query=" + query + "&queryIndex=" + queryIndex + "&queryReturn=" + suggestReturn;
     qres += "&suggest=autoSubject&rows=20";
     Rails.ajax({
         url: "/vaultify/fast.json",

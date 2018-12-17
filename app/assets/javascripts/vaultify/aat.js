@@ -26,7 +26,7 @@ function aatAPIQuery(query) {
     });
 
 
-    const options = {
+    var options = {
         hostname: 'vocabsservices.getty.edu',
         path: '/AATService.asmx/AATGetTermMatch?term=' + cleanQuery + '&logop=&notes=',
         //headers: {

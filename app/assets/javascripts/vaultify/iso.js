@@ -1,4 +1,4 @@
-const iso = [
+var iso = [
     {"alpha3-b": "aar", "alpha2": "aa", "English": "Afar"},
     {"alpha3-b": "abk", "alpha2": "ab", "English": "Abkhazian"},
     {"alpha3-b": "afr", "alpha2": "af", "English": "Afrikaans"},
